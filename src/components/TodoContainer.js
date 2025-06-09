@@ -5,7 +5,7 @@ import InputTodo from "./InputTodo";
 import { useTodos } from "../constants/todos";
 import Projects from "./Projects";
 
-const TodoContainer = () => {
+const TodoContainer = ({ user }) => {
   const {
     todos,
     // setTodos,
@@ -15,7 +15,7 @@ const TodoContainer = () => {
     assignTo,
     addTag,
     removeTag,
-  } = useTodos();
+  } = useTodos(user);
 
   const [isProjectTab, setIsProjectTab] = useState(false);
 

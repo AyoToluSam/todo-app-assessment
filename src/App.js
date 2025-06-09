@@ -36,9 +36,11 @@ const App = () => {
             <span>
               Welcome, <h2> {loggedInUser.fullname}</h2>
             </span>
-            <button onClick={handleLogout}>Logout</button>
+            <button className="logout-button" onClick={handleLogout}>
+              Logout
+            </button>
           </div>
-          <TodoContainer />
+          <TodoContainer user={loggedInUser} />
         </div>
       ) : (
         <Login handleLogin={handleLogin} />

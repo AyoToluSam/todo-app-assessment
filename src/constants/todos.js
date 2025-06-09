@@ -31,7 +31,7 @@ export const initialTodos = [
   },
 ];
 
-export const useTodos = () => {
+export const useTodos = (user) => {
   const [todos, setTodos] = useState(initialTodos);
 
   const handleChange = (id) => {
@@ -49,14 +49,15 @@ export const useTodos = () => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
-  const addTodoItem = (title) => {
+  const addTodoItem = (title, project) => {
     const newTodo = {
       id: uuidv4(),
       title: title,
       completed: false,
-      createdBy: "John Doe",
-      assignedTo: Math.floor(Math.random() * 4) + 1,
+      createdBy: user.fullname,
+      assignedTo: null,
       tags: [],
+      project,
     };
     setTodos([...todos, newTodo]);
   };

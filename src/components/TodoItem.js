@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { users } from "../constants/users";
 import { appTags } from "../constants/tags";
+import { capitalize } from "../util";
 
 const completedStyle = {
   fontStyle: "italic",
@@ -21,6 +22,22 @@ const TodoItem = (props) => {
 
   const [openAddTag, setOpenAddTag] = useState(false);
 
+  useEffect(() => {
+    const handleClick = (e) => {
+      if (!e.target.closest(".add-tag")) {
+        setOpenAddTag(false);
+      }
+    };
+
+    document.addEventListener("click", handleClick);
+    return () => document.removeEventListener("click", handleClick);
+  }, []);
+
+  const handleAddTag = (id, tag) => {
+    addTag(id, tag);
+    setOpenAddTag(false);
+  };
+
   return (
     <li className="todo-item">
       <div>
@@ -35,11 +52,16 @@ const TodoItem = (props) => {
       <div className="tags-container">
         <div className="tags">
           {tags.map((tag) => (
-            <span key={tag}>{tag}</span>
+            <span className="added-tag" key={tag}>
+              {capitalize(tag)}
+              <button className="remove-tag" onClick={() => removeTag(id, tag)}>
+                x
+              </button>
+            </span>
           ))}
           <div className="add-tag">
             <button onClick={() => setOpenAddTag(!openAddTag)}>
-              Add a tag
+              + Add a tag
             </button>
             {openAddTag && (
               <ul className="tag-list">
@@ -49,9 +71,9 @@ const TodoItem = (props) => {
                     <li
                       className="each-tag"
                       key={tag}
-                      onClick={() => addTag(id, tag)}
+                      onClick={() => handleAddTag(id, tag)}
                     >
-                      {tag}
+                      {capitalize(tag)}
                     </li>
                   ))}
               </ul>

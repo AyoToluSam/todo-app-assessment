@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import InputTodo from "./InputTodo";
 import TodosList from "./TodosList";
 
@@ -11,15 +11,19 @@ const Projects = ({
   addTag,
   removeTag,
 }) => {
-  const projectGroups = todos.reduce((acc, todo) => {
-    if (todo.project) {
-      if (!acc[todo.project]) {
-        acc[todo.project] = [];
-      }
-      acc[todo.project].push(todo);
-    }
-    return acc;
-  }, {});
+  const projectGroups = useMemo(
+    () =>
+      todos.reduce((acc, todo) => {
+        if (todo.project) {
+          if (!acc[todo.project]) {
+            acc[todo.project] = [];
+          }
+          acc[todo.project].push(todo);
+        }
+        return acc;
+      }, {}),
+    [todos]
+  );
 
   const [openAccordion, setOpenAccordion] = useState(false);
 
@@ -29,36 +33,34 @@ const Projects = ({
       {Object.keys(projectGroups).length === 0 ? (
         <p>No projects available.</p>
       ) : (
-        Object.entries(projectGroups).map(([projectName, projectTodos]) => (
-          <div key={projectName} className="project-group">
-            <h3
-              onClick={() =>
-                setOpenAccordion(
-                  openAccordion === projectName ? null : projectName
-                )
-              }
-            >
-              {projectName}{" "}
-              <span style={{ rotate: openAccordion ? "180deg" : 0 }}>
-                {" "}
-                {"🔽"}
-              </span>
-            </h3>
-            {openAccordion && openAccordion === projectName && (
-              <div>
-                <InputTodo addTodoProps={addTodoItem} />
-                <TodosList
-                  todos={projectTodos}
-                  handleChangeProps={handleChange}
-                  deleteTodoProps={delTodo}
-                  assignTo={assignTo}
-                  addTag={addTag}
-                  removeTag={removeTag}
-                />
-              </div>
-            )}
-          </div>
-        ))
+        Object.entries(projectGroups).map(([projectName, projectTodos]) => {
+          const isOpened = openAccordion && openAccordion === projectName;
+          return (
+            <div key={projectName} className="project-group">
+              <h3
+                onClick={() => setOpenAccordion(isOpened ? null : projectName)}
+              >
+                {projectName}{" "}
+                <span style={{ rotate: isOpened ? "180deg" : 0 }}>{"🔽"}</span>
+              </h3>
+              {isOpened && (
+                <div>
+                  <InputTodo
+                    addTodoProps={(title) => addTodoItem(title, projectName)}
+                  />
+                  <TodosList
+                    todos={projectTodos}
+                    handleChangeProps={handleChange}
+                    deleteTodoProps={delTodo}
+                    assignTo={assignTo}
+                    addTag={addTag}
+                    removeTag={removeTag}
+                  />
+                </div>
+              )}
+            </div>
+          );
+        })
       )}
     </div>
   );
