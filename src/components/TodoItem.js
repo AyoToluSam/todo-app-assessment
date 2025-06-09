@@ -47,7 +47,9 @@ const TodoItem = (props) => {
           onChange={() => handleChangeProps(id)}
         />
         <button onClick={() => deleteTodoProps(id)}>Delete</button>
-        <span style={completed ? completedStyle : null}>{title}</span>
+        <span style={completed ? completedStyle : null}>
+          {capitalize(title)}
+        </span>
       </div>
       <div className="tags-container">
         <div className="tags">
@@ -93,7 +95,9 @@ const TodoItem = (props) => {
             </option>
           ))}
         </select>
-        <p className="created-by">Created By: {createdBy}</p>
+        <p className="created-by">
+          Created By: <br /> <b>{createdBy}</b>
+        </p>
       </div>
     </li>
   );

@@ -87,7 +87,7 @@ body {
 
 .tags-container {
   display: grid;
-  grid-template-columns: 3fr 1fr 1fr;
+  grid-template-columns: 2.5fr 1fr 1fr;
   gap: 2rem;
   align-items: center;
 }
@@ -237,7 +237,7 @@ body {
 }
 
 .created-by {
-  min-width: max-content;
+  justify-self: end;
   font-size: 14px;
 }
 
