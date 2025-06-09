@@ -1,79 +1,66 @@
-import React from "react";
+import React, { useState } from "react";
 import TodosList from "./TodosList";
 import Header from "./Header";
 import InputTodo from "./InputTodo";
-// import uuid from "uuid";
-import { v4 as uuidv4 } from "uuid";
+import { useTodos } from "../constants/todos";
+import Projects from "./Projects";
 
-class TodoContainer extends React.Component {
-  state = {
-    todos: [
-      {
-        // id: uuid.v4(),
-        id: uuidv4(),
-        title: "Setup development environment",
-        completed: true,
-      },
-      {
-        // id: uuid.v4(),
-        id: uuidv4(),
-        title: "Develop website and add content",
-        completed: false,
-      },
-      {
-        // id: uuid.v4(),
-        id: uuidv4(),
-        title: "Deploy to live server",
-        completed: false,
-      },
-    ],
-  };
+const TodoContainer = () => {
+  const {
+    todos,
+    // setTodos,
+    addTodoItem,
+    delTodo,
+    handleChange,
+    assignTo,
+    addTag,
+    removeTag,
+  } = useTodos();
 
-  handleChange = (id) => {
-    this.setState({
-      todos: this.state.todos.map((todo) => {
-        if (todo.id === id) {
-          todo.completed = !todo.completed;
-        }
-        return todo;
-      }),
-    });
-  };
+  const [isProjectTab, setIsProjectTab] = useState(false);
 
-  delTodo = (id) => {
-    this.setState({
-      todos: [
-        ...this.state.todos.filter((todo) => {
-          return todo.id !== id;
-        }),
-      ],
-    });
-  };
-
-  addTodoItem = (title) => {
-    const newTodo = {
-      // id: uuid.v4(),
-      id: uuidv4(),
-      title: title,
-      completed: false,
-    };
-    this.setState({
-      todos: [...this.state.todos, newTodo],
-    });
-  };
-
-  render() {
-    return (
-      <div className="container">
-        <Header />
-        <InputTodo addTodoProps={this.addTodoItem} />
-        <TodosList
-          todos={this.state.todos}
-          handleChangeProps={this.handleChange}
-          deleteTodoProps={this.delTodo}
-        />
+  return (
+    <div className="container">
+      <Header />
+      <div className="tabs">
+        <button
+          className={`tab ${!isProjectTab ? "active" : ""}`}
+          onClick={() => setIsProjectTab(false)}
+        >
+          Todos
+        </button>
+        <button
+          className={`tab ${isProjectTab ? "active" : ""}`}
+          onClick={() => setIsProjectTab(true)}
+        >
+          Projects
+        </button>
       </div>
-    );
-  }
-}
+      {isProjectTab ? (
+        <Projects
+          todos={todos}
+          addTodoItem={addTodoItem}
+          handleChange={handleChange}
+          delTodo={delTodo}
+          assignTo={assignTo}
+          addTag={addTag}
+          removeTag={removeTag}
+        />
+      ) : (
+        <div>
+          <InputTodo addTodoProps={addTodoItem} />
+          <TodosList
+            todos={todos}
+            handleChangeProps={handleChange}
+            deleteTodoProps={delTodo}
+            assignTo={assignTo}
+            addTag={addTag}
+            removeTag={removeTag}
+          />
+        </div>
+      )}
+    </div>
+  );
+};
+
 export default TodoContainer;
