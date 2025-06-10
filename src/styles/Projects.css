@@ -1,0 +1,53 @@
+.project-tab {
+  padding: 20px;
+  background-color: var(--bg-gray);
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+.project-tab h2 {
+  color: var(--heading-color);
+  margin-bottom: 20px;
+}
+
+.project-group {
+  margin-bottom: 15px;
+  border: 1px solid var(--border-light-gray);
+  border-radius: 6px;
+}
+
+.project-group h3 {
+  padding: 12px 15px;
+  margin: 0;
+  background-color: var(--white);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.2s ease;
+}
+
+.input-project {
+  margin-bottom: 1rem;
+}
+
+.delete-project-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.delete-project {
+  background: var(--secondary-color);
+  color: var(--white);
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.search-projects {
+  margin-bottom: 1rem;
+}

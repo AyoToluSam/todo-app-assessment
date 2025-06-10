@@ -49,10 +49,10 @@ const TodoItem = (props) => {
           checked={completed}
           onChange={() => handleChangeProps(id)}
         />
-        <button onClick={() => deleteTodoProps(id)}>Delete</button>
         <span style={completed ? completedStyle : null}>
           {capitalize(title)}
         </span>
+        <button onClick={() => deleteTodoProps(id)}>Delete</button>
       </div>
       <div className="tags-container">
         <div className="tags">
