@@ -13,6 +13,7 @@ const Projects = ({
   assignTo,
   addTag,
   removeTag,
+  addDueDate,
 }) => {
   const { projects, addProject, deleteProject } = useProjects(user);
 
@@ -48,6 +49,7 @@ const Projects = ({
                     assignTo={assignTo}
                     addTag={addTag}
                     removeTag={removeTag}
+                    addDueDate={addDueDate}
                   />
                   <div className="delete-project-container">
                     <button

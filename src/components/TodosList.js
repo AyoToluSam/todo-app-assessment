@@ -9,6 +9,7 @@ const TodosList = (props) => {
     assignTo,
     addTag,
     removeTag,
+    addDueDate,
   } = props;
   return (
     <div>
@@ -21,6 +22,7 @@ const TodosList = (props) => {
           assignTo={assignTo}
           addTag={addTag}
           removeTag={removeTag}
+          addDueDate={addDueDate}
         />
       ))}
     </div>

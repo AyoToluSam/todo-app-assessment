@@ -8,6 +8,7 @@ export const initialTodos = [
     completed: true,
     createdBy: "John Doe",
     assignedTo: 1,
+    dueDate: "2025-06-01",
     tags: ["work", "development"],
     projectId: 1,
     projectName: "Website Redesign",
@@ -18,6 +19,7 @@ export const initialTodos = [
     completed: false,
     createdBy: "John Doe",
     assignedTo: 3,
+    dueDate: "2025-06-12",
     tags: ["urgent"],
     projectId: 1,
     projectName: "Website Redesign",
@@ -38,6 +40,7 @@ export const initialTodos = [
     completed: false,
     createdBy: "John Doe",
     assignedTo: 2,
+    dueDate: "2025-06-05",
     tags: ["testing"],
     projectId: 1,
     projectName: "Website Redesign",
@@ -158,6 +161,17 @@ export const useTodos = (user) => {
     );
   };
 
+  const addDueDate = (id, dueDate) => {
+    setTodos(
+      todos.map((todo) => {
+        if (todo.id === id) {
+          return { ...todo, dueDate };
+        }
+        return todo;
+      })
+    );
+  };
+
   return {
     todos,
     setTodos,
@@ -167,5 +181,6 @@ export const useTodos = (user) => {
     assignTo,
     addTag,
     removeTag,
+    addDueDate,
   };
 };

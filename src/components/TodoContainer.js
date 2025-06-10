@@ -15,6 +15,7 @@ const TodoContainer = ({ user }) => {
     assignTo,
     addTag,
     removeTag,
+    addDueDate,
   } = useTodos(user);
 
   const [isProjectTab, setIsProjectTab] = useState(false);
@@ -45,6 +46,7 @@ const TodoContainer = ({ user }) => {
           assignTo={assignTo}
           addTag={addTag}
           removeTag={removeTag}
+          addDueDate={addDueDate}
         />
       ) : (
         <div>
@@ -56,6 +58,7 @@ const TodoContainer = ({ user }) => {
             assignTo={assignTo}
             addTag={addTag}
             removeTag={removeTag}
+            addDueDate={addDueDate}
           />
         </div>
       )}

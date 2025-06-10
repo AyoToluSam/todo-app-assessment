@@ -12,12 +12,13 @@ const completedStyle = {
 
 const TodoItem = (props) => {
   const {
-    todo: { completed, id, title, createdBy, tags },
+    todo: { completed, id, title, createdBy, assignedTo, tags, dueDate },
     handleChangeProps,
     deleteTodoProps,
     assignTo,
     addTag,
     removeTag,
+    addDueDate,
   } = props;
 
   const [openAddTag, setOpenAddTag] = useState(false);
@@ -37,6 +38,8 @@ const TodoItem = (props) => {
     addTag(id, tag);
     setOpenAddTag(false);
   };
+
+  const assignedUser = users.find((user) => user.id === assignedTo);
 
   return (
     <li className="todo-item">
@@ -82,19 +85,32 @@ const TodoItem = (props) => {
             )}
           </div>
         </div>
-        <select
-          onChange={(e) => assignTo(id, e.target.value)}
-          defaultValue="default"
-        >
-          <option value="default" disabled>
-            Assign To
-          </option>
-          {users.map((user) => (
-            <option key={user.id} value={user.id}>
-              {user.fullname}
+        <div className="assigned-user-container">
+          <p>Assigned User</p>
+          <select
+            onChange={(e) => assignTo(id, e.target.value)}
+            defaultValue={assignedUser ? assignedUser.id : "default"}
+          >
+            <option value="default" disabled>
+              Assign user
             </option>
-          ))}
-        </select>
+            {users.map((user) => (
+              <option key={user.id} value={user.id}>
+                {user.fullname}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="due-date-container">
+          <p>Choose due date</p>
+          <input
+            type="date"
+            defaultValue={dueDate || ""}
+            placeholder="Choose due date"
+            onChange={(e) => addDueDate(id, e.target.value)}
+            className="due-date-input"
+          />
+        </div>
         <p className="created-by">
           Created By: <br /> <b>{createdBy}</b>
         </p>
