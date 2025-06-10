@@ -68,14 +68,14 @@ const TodoItem = (props) => {
             {openAddTag && (
               <ul className="tag-list">
                 {appTags
-                  .filter((tag) => !tags.includes(tag))
-                  .map((tag) => (
+                  .filter((tag) => !tags.includes(tag.name))
+                  .map(({ name }) => (
                     <li
                       className="each-tag"
-                      key={tag}
-                      onClick={() => handleAddTag(id, tag)}
+                      key={name}
+                      onClick={() => handleAddTag(id, name)}
                     >
-                      {capitalize(tag)}
+                      {capitalize(name)}
                     </li>
                   ))}
               </ul>

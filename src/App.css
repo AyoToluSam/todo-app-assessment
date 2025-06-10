@@ -38,6 +38,24 @@ body {
   display: flex;
   width: 100%;
 }
+.input-project {
+  margin-bottom: 1rem;
+}
+.delete-project-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+.delete-project {
+  background: var(--secondary-color);
+  color: var(--white);
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
 .input-text {
   flex: 8;
   font-size: 14px;

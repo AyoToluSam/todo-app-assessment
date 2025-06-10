@@ -1,8 +1,11 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import InputTodo from "./InputTodo";
 import TodosList from "./TodosList";
+import { useProjects } from "../constants/projects";
+import InputProject from "./InputProject";
 
 const Projects = ({
+  user,
   todos,
   addTodoItem,
   handleChange,
@@ -11,36 +14,26 @@ const Projects = ({
   addTag,
   removeTag,
 }) => {
-  const projectGroups = useMemo(
-    () =>
-      todos.reduce((acc, todo) => {
-        if (todo.project) {
-          if (!acc[todo.project]) {
-            acc[todo.project] = [];
-          }
-          acc[todo.project].push(todo);
-        }
-        return acc;
-      }, {}),
-    [todos]
-  );
+  const { projects, addProject, deleteProject } = useProjects(user);
 
   const [openAccordion, setOpenAccordion] = useState(false);
 
   return (
     <div className="project-tab">
       <h2>Projects</h2>
-      {Object.keys(projectGroups).length === 0 ? (
+      <InputProject addProject={addProject} />
+      {projects.length === 0 ? (
         <p>No projects available.</p>
       ) : (
-        Object.entries(projectGroups).map(([projectName, projectTodos]) => {
+        projects.map(({ id, projectName }) => {
+          const projectTodos = todos.filter((todo) => todo.projectId === id);
           const isOpened = openAccordion && openAccordion === projectName;
           return (
             <div key={projectName} className="project-group">
               <h3
                 onClick={() => setOpenAccordion(isOpened ? null : projectName)}
               >
-                {projectName}{" "}
+                {projectName}
                 <span style={{ rotate: isOpened ? "180deg" : 0 }}>{"🔽"}</span>
               </h3>
               {isOpened && (
@@ -56,6 +49,20 @@ const Projects = ({
                     addTag={addTag}
                     removeTag={removeTag}
                   />
+                  <div className="delete-project-container">
+                    <button
+                      className="delete-project"
+                      onClick={() => deleteProject(id)}
+                    >
+                      Delete Project
+                    </button>
+                    <span>
+                      <span role="img" aria-label="Information">
+                        ℹ️
+                      </span>{" "}
+                      Note: This will delete the project and all its todos.
+                    </span>
+                  </div>
                 </div>
               )}
             </div>
