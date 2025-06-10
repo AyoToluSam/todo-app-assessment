@@ -45,6 +45,7 @@
 .todos-list {
   margin-top: 1rem;
   border-top: 1px solid var(--border-light);
+  padding: 0 1rem;
 }
 
 .todo-item {
@@ -58,6 +59,10 @@
   > div {
     display: flex;
     align-items: center;
+
+    span {
+      font-weight: 600;
+    }
   }
 }
 
@@ -76,7 +81,7 @@
   margin-left: auto;
 }
 
-.tags-container {
+.todo-item .tags-container {
   display: grid;
   grid-template-columns: 3fr 1fr 1fr 1fr;
   gap: 1rem;

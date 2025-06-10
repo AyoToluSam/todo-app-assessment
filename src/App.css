@@ -30,9 +30,9 @@ body {
   color: var(--text-color);
 }
 .container {
-  max-width: 700px;
+  max-width: 740px;
   margin: 0 auto;
-  padding: 0 10px;
+  padding: 0 0.5rem 3rem;
 }
 
 .tabs {

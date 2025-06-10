@@ -35,7 +35,7 @@
   display: flex;
   align-items: flex-end;
   gap: 0.5rem;
-  margin-top: 1.5rem;
+  padding: 1rem;
 }
 
 .delete-project {
