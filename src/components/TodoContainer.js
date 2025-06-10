@@ -8,7 +8,6 @@ import Projects from "./Projects";
 const TodoContainer = ({ user }) => {
   const {
     todos,
-    // setTodos,
     addTodoItem,
     delTodo,
     handleChange,
@@ -19,6 +18,10 @@ const TodoContainer = ({ user }) => {
   } = useTodos(user);
 
   const [isProjectTab, setIsProjectTab] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
+  const filteredTodos = todos.filter((todo) =>
+    todo.title.toLowerCase().includes(searchInput.toLowerCase())
+  );
 
   return (
     <div className="container">
@@ -51,8 +54,17 @@ const TodoContainer = ({ user }) => {
       ) : (
         <div>
           <InputTodo addTodoProps={addTodoItem} />
+          <div className="search-container">
+            <input
+              type="text"
+              placeholder="Search todos..."
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+              className="search-input"
+            />
+          </div>
           <TodosList
-            todos={todos}
+            todos={filteredTodos}
             handleChangeProps={handleChange}
             deleteTodoProps={delTodo}
             assignTo={assignTo}

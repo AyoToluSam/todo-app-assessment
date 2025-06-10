@@ -12,7 +12,7 @@ const TodosList = (props) => {
     addDueDate,
   } = props;
   return (
-    <div>
+    <div className="todos-list">
       {todos.map((todo) => (
         <TodoItem
           key={todo.id}

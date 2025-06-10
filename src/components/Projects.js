@@ -16,17 +16,29 @@ const Projects = ({
   addDueDate,
 }) => {
   const { projects, addProject, deleteProject } = useProjects(user);
-
   const [openAccordion, setOpenAccordion] = useState(false);
+
+  const [searchInput, setSearchInput] = useState("");
+  const filteredProjects = projects.filter((project) =>
+    project.projectName.toLowerCase().includes(searchInput.toLowerCase())
+  );
 
   return (
     <div className="project-tab">
       <h2>Projects</h2>
       <InputProject addProject={addProject} />
-      {projects.length === 0 ? (
+      <div className="search-container search-projects">
+        <input
+          type="text"
+          placeholder="Search projects..."
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
+        />
+      </div>
+      {filteredProjects.length === 0 ? (
         <p>No projects available.</p>
       ) : (
-        projects.map(({ id, projectName }) => {
+        filteredProjects.map(({ id, projectName }) => {
           const projectTodos = todos.filter((todo) => todo.projectId === id);
           const isOpened = openAccordion && openAccordion === projectName;
           return (
