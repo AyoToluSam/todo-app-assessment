@@ -1,0 +1,6 @@
+- Users: This will allow todos to be assigned to specific users. It will also provide visibility into who created each todo.
+- Login: For end-to-end management of users, login is essential for identification. This will allow the app to recognize who is currently performing any action.
+- Tags: Adding tags to todos will make them more descriptive and easily identifiable.
+- Projects: Creating projects and organizing todos under them allows for better organization in task management.
+- Timeline (Due Date): A todo with a due date will enable accountability for users to whom tasks are assigned.
+- Search: Search feature will allow a user to find a todo or a project in the case of large sets of data.
